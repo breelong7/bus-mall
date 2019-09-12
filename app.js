@@ -11,6 +11,8 @@ var productTwoEl = document.getElementById('product2');
 
 var productThreeEl = document.getElementById('product3');
 
+var bestProductImgEl = document.getElementById('best-product');
+
 //declare all array for all of my products
 var allProducts = [];
 
@@ -25,26 +27,26 @@ function Product(name, src){
 }
 
 //create new instances of Product function
-new Product('bag', 'bag.jpg');
-new Product('banana', 'banana.jpg');
-new Product('bathroom', 'bathroom.jpg');
-new Product('boots', 'boots.jpg');
-new Product('breakfast', 'breakfast.jpg');
-new Product('bubblegum', 'bubblegum.jpg');
-new Product ('chair', 'chair.jpg');
-new Product('cthulhu', 'cthulhu.jpg');
-new Product('dog-duck', 'dog-duck.jpg');
-new Product('dragon', 'dragon.jpg');
-new Product('pen', 'pen.jpg');
-new Product('pet-sweep', 'pet-sweep.jpg');
-new Product('scissors', 'scissors.jpg');
-new Product('shark', 'shark.jpg');
-new Product('sweep', 'sweep.png');
-new Product('tauntaun', 'tauntaun.jpg');
-new Product('unicorn', 'unicorn.jpg');
-new Product('usb', 'usb.gif');
-new Product('water-can', 'water-can.jpg');
-new Product('wine-glass', 'wine-glass.jpg');
+new Product('R2D2 bag', 'bag.jpg');
+new Product('Banana Slicer', 'banana.jpg');
+new Product('Bathroom Multitasker', 'bathroom.jpg');
+new Product('Toeless Rainboots', 'boots.jpg');
+new Product('Breakfast Oven', 'breakfast.jpg');
+new Product('Meatball Bubblegum', 'bubblegum.jpg');
+new Product ('Weird Chir', 'chair.jpg');
+new Product('Cthulhu', 'cthulhu.jpg');
+new Product('Dog-duck Mask', 'dog-duck.jpg');
+new Product('Dragon Meat', 'dragon.jpg');
+new Product('Pen Utensils', 'pen.jpg');
+new Product('Pet-sweep Footies', 'pet-sweep.jpg');
+new Product('Pizza Scissors', 'scissors.jpg');
+new Product('Shark Sleeping Bag', 'shark.jpg');
+new Product('Baby Sweep', 'sweep.png');
+new Product('Tauntaun', 'tauntaun.jpg');
+new Product('Unicorn Meat', 'unicorn.jpg');
+new Product('Tenticle usb', 'usb.gif');
+new Product('Infinite water-can', 'water-can.jpg');
+new Product('Undrinkable Wine Glass', 'wine-glass.jpg');
 
 //declare recent random numbers array to store random numbers used. Use this information to prevent the same images from being displayed
 var recentRandomNumbers = [];
@@ -65,13 +67,13 @@ function render() {
     randomIndex = random(0, allProducts.length - 1);
   }
 
+  recentRandomNumbers.push(randomIndex);
   //use .shift to remove the element at the zero index and shift the values
   if(recentRandomNumbers.length > 3){
     recentRandomNumbers.shift();
   }
 
   //push the random nubmers generated in the random index variable into the recent random numbers array
-  recentRandomNumbers.push(randomIndex);
 
   //increment the number of views for each product at the random index value
   allProducts[randomIndex].views++;
@@ -82,14 +84,14 @@ function render() {
   productOneEl.title = allProducts[randomIndex].name;
 
 
-  //use var to store random index number for product 2
-  randomIndex = random(0, allProducts.length - 1);
 
   while(recentRandomNumbers.includes(randomIndex)){
 
     randomIndex = random(0, allProducts.length - 1);
 
   }
+
+  recentRandomNumbers.push(randomIndex);
 
 
   if(recentRandomNumbers.length > 3) {
@@ -110,6 +112,8 @@ function render() {
 
   }
 
+  recentRandomNumbers.push(randomIndex);
+
 
   if(recentRandomNumbers.length > 3) {
     recentRandomNumbers.shift();
@@ -125,25 +129,47 @@ function render() {
 
 function renderBestProduct() {
   var bestProduct;
+  var bestProductImg;
   var temp = 0;
 
-  for(var i =0; i < allProducts.length; i++){
+  for(var i = 0; i < allProducts.length; i++){
     if(allProducts[i].votes > temp) {
       temp = allProducts[i].votes;
-      bestProduct = allProducts[i];
+      bestProduct = allProducts[i].name;
+      bestProductImg = allProducts[i].src;
+
     }
   }
 
   var h2El = document.createElement('h2');
-  h2El.textContent = `The product with the most votes is ${bestProduct} with ${bestProduct.votes} votes.`;
+  h2El.textContent = `The product with the most votes is ${bestProduct} with ${temp} votes!`
   resultsEl.appendChild(h2El);
+
+
+  bestProductImgEl.src = bestProductImg;
 }
 
 productContainerEl.addEventListener('click', handleClick);
 
 function handleClick(e){
   var productName = e.target.title;
-  
+
+  if(e.target.id === 'product-container') {
+    alert('click on one of the three products displayed!');
+  }
+
+  if(votesRemaining === 0) {
+    productContainerEl.removeEventListener('click', handleClick);
+    renderBestProduct();
+  }
+
+  for(var i = 0; i < allProducts.length; i++){
+    if(productName === allProducts[i].name){
+      allProducts[i].votes++;
+      votesRemaining--;
+    }
+  }
+  render();
 }
 
 

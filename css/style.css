@@ -6,20 +6,37 @@ h1 {
   font-weight: bold;
 }
 
-#product1, #product2, #product3 {
+#product1, #product2, #product3{
   width: 15%;
   border: 4px solid rgb(120, 208, 230);
   margin: 1em;
   padding: 1em;
-  background-color: white;
 }
 
 #product-container {
   border: 4px solid rgb(113, 75, 173);
   border-radius: 10px;
-  min-height: 335px;
+  min-height: 220px;
   width: 80%;
   margin: auto;
   padding: 1em;
   text-align: center;
+}
+
+h2 {
+  font-family: 'Livvic', sans-serif;
+  font-size: 230%;
+  margin: 2em;
+  text-align: center;
+  color: rgb(19, 19, 145);
+}
+
+#results {
+  text-align: center;
+}
+
+#best-product {
+  width: 15%;
+  margin: 1em;
+  padding: 1em;
 }
