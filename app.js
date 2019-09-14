@@ -33,7 +33,7 @@ new Product('Bathroom Multitasker', 'bathroom.jpg');
 new Product('Toeless Rainboots', 'boots.jpg');
 new Product('Breakfast Oven', 'breakfast.jpg');
 new Product('Meatball Bubblegum', 'bubblegum.jpg');
-new Product ('Weird Chir', 'chair.jpg');
+new Product ('Weird Chair', 'chair.jpg');
 new Product('Cthulhu', 'cthulhu.jpg');
 new Product('Dog-duck Mask', 'dog-duck.jpg');
 new Product('Dragon Meat', 'dragon.jpg');
@@ -137,6 +137,8 @@ function renderBestProduct() {
       bestProductImg = allProducts[i].src;
 
     }
+
+
   }
 
   var h2El = document.createElement('h2');
@@ -145,6 +147,7 @@ function renderBestProduct() {
 
 
   bestProductImgEl.src = bestProductImg;
+  renderChart();
 }
 
 productContainerEl.addEventListener('click', handleClick);
@@ -168,49 +171,96 @@ function handleClick(e){
     }
   }
   render();
+
 }
 
 render();
 
-
 var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    //input names of products in the labels array
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-      label: '# of Votes',
-      //input number of votes for each product
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 1,
-    }],
-  },
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true,
-        },
+
+var namesArr = [];
+var votesArr = [];
+
+//function is invoked within the render best product function function
+function renderChart(){
+  //run function after all votes have been used
+  if(votesRemaining === 0){
+    //loop through all products array and push any products with more than zero votes to the namesArr and votesArr
+    for (var i = 0; i < allProducts.length; i++){
+      if (allProducts[i].votes > 0) {
+        namesArr.push(allProducts[i].name);
+        
+        votesArr.push(allProducts[i].votes);
+      }
+    }
+  }
+
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+    //input names of products in the namesArr array
+      labels: namesArr,
+      datasets: [{
+        label: '# of Votes',
+        //input number of votes in the votesArr array
+        data: votesArr,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1,
       }],
     },
-  },
-});
-
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+          },
+        }],
+      },
+    },
+  });
+}
 
