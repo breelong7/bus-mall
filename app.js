@@ -69,11 +69,9 @@ function render() {
 
   recentRandomNumbers.push(randomIndex);
   //use .shift to remove the element at the zero index and shift the values
-  if(recentRandomNumbers.length > 3){
+  if(recentRandomNumbers.length > 6){
     recentRandomNumbers.shift();
   }
-
-  //push the random nubmers generated in the random index variable into the recent random numbers array
 
   //increment the number of views for each product at the random index value
   allProducts[randomIndex].views++;
@@ -94,7 +92,7 @@ function render() {
   recentRandomNumbers.push(randomIndex);
 
 
-  if(recentRandomNumbers.length > 3) {
+  if(recentRandomNumbers.length > 6) {
     recentRandomNumbers.shift();
   }
 
@@ -115,7 +113,7 @@ function render() {
   recentRandomNumbers.push(randomIndex);
 
 
-  if(recentRandomNumbers.length > 3) {
+  if(recentRandomNumbers.length > 6) {
     recentRandomNumbers.shift();
   }
 
@@ -142,7 +140,7 @@ function renderBestProduct() {
   }
 
   var h2El = document.createElement('h2');
-  h2El.textContent = `The product with the most votes is ${bestProduct} with ${temp} votes!`
+  h2El.textContent = `The product with the most votes is ${bestProduct} with ${temp} votes!`;
   resultsEl.appendChild(h2El);
 
 
@@ -172,11 +170,47 @@ function handleClick(e){
   render();
 }
 
-
-
-
-
-
 render();
+
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    //input names of products in the labels array
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [{
+      label: '# of Votes',
+      //input number of votes for each product
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1,
+    }],
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+        },
+      }],
+    },
+  },
+});
 
 
