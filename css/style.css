@@ -40,6 +40,12 @@ h2 {
 
 #best-product {
   width: 15%;
-  margin: 1em;
   padding: 1em;
+}
+
+.chart-container {
+  position: relative;
+  margin: auto;
+  height: 575px;;
+  width: 650px;
 }
