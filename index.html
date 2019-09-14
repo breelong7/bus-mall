@@ -4,6 +4,7 @@
   <title>BusMall! Shopping at 30k ft</title>
   <link rel="stylesheet" type="text/css" href="css/reset.css" />
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <!--move google font link to css file-->
   <link href="https://fonts.googleapis.com/css?family=Livvic&display=swap" rel="stylesheet" />
 </head>
 
@@ -11,7 +12,8 @@
   <header>
     <h1>Welcome to BusMall!
       <br>
-      Review the 3 product images and click on your favorite to vote!</h1>
+      Review the 3 product images and click on your favorite to vote!
+    </h1>
   </header>
   <main>
     <div id="product-container">
@@ -22,9 +24,11 @@
     </div>
     <div id="results">
         <img id="best-product" src="" alt="" title="" />
-
+        <canvas id="myChart"></canvas>
     </div>
   </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script src="app.js"></script>
 </body>
 
