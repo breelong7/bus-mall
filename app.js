@@ -257,6 +257,8 @@ function renderChart(){
         yAxes: [{
           ticks: {
             beginAtZero: true,
+            //y-axis integers to whole numbers
+            callback: function(value) {if (value % 1 === 0) {return value;}},
           },
         }],
       },
