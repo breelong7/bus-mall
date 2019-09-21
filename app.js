@@ -30,27 +30,30 @@ function Product(name, src){
 
 
 //create new instances of Product function
-new Product('R2D2 bag', 'bag.jpg');
-new Product('Banana Slicer', 'banana.jpg');
-new Product('Bathroom Multitasker', 'bathroom.jpg');
-new Product('Toeless Rainboots', 'boots.jpg');
-new Product('Breakfast Oven', 'breakfast.jpg');
-new Product('Meatball Bubblegum', 'bubblegum.jpg');
-new Product ('Weird Chair', 'chair.jpg');
-new Product('Cthulhu', 'cthulhu.jpg');
-new Product('Dog-duck Mask', 'dog-duck.jpg');
-new Product('Dragon Meat', 'dragon.jpg');
-new Product('Pen Utensils', 'pen.jpg');
-new Product('Pet-sweep Footies', 'pet-sweep.jpg');
-new Product('Pizza Scissors', 'scissors.jpg');
-new Product('Shark Sleeping Bag', 'shark.jpg');
-new Product('Baby Sweep', 'sweep.png');
-new Product('Tauntaun', 'tauntaun.jpg');
-new Product('Unicorn Meat', 'unicorn.jpg');
-new Product('Tenticle usb', 'usb.gif');
-new Product('Infinite water-can', 'water-can.jpg');
-new Product('Undrinkable Wine Glass', 'wine-glass.jpg');
 
+function createNewProducts(){
+  new Product('R2D2 bag', 'bag.jpg');
+  new Product('Banana Slicer', 'banana.jpg');
+  new Product('Bathroom Multitasker', 'bathroom.jpg');
+  new Product('Toeless Rainboots', 'boots.jpg');
+  new Product('Breakfast Oven', 'breakfast.jpg');
+  new Product('Meatball Bubblegum', 'bubblegum.jpg');
+  new Product ('Weird Chair', 'chair.jpg');
+  new Product('Cthulhu', 'cthulhu.jpg');
+  new Product('Dog-duck Mask', 'dog-duck.jpg');
+  new Product('Dragon Meat', 'dragon.jpg');
+  new Product('Pen Utensils', 'pen.jpg');
+  new Product('Pet-sweep Footies', 'pet-sweep.jpg');
+  new Product('Pizza Scissors', 'scissors.jpg');
+  new Product('Shark Sleeping Bag', 'shark.jpg');
+  new Product('Baby Sweep', 'sweep.png');
+  new Product('Tauntaun', 'tauntaun.jpg');
+  new Product('Unicorn Meat', 'unicorn.jpg');
+  new Product('Tenticle usb', 'usb.gif');
+  new Product('Infinite water-can', 'water-can.jpg');
+  new Product('Undrinkable Wine Glass', 'wine-glass.jpg');
+
+}
 //declare recent random numbers array to store random numbers used. Use this information to prevent the same images from being displayed
 var recentRandomNumbers = [];
 
@@ -157,7 +160,6 @@ function handleClick(e){
 
 }
 
-render();
 
 var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -172,16 +174,16 @@ function renderChart(){
     for (var i = 0; i < allProducts.length; i++){
       if (allProducts[i].votes > 0) {
         namesArr.push(allProducts[i].name);
-
+        
         votesArr.push(allProducts[i].votes);
       }
     }
   }
-
+  
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-    //input names of products in the namesArr array
+      //input names of products in the namesArr array
       labels: namesArr,
       datasets: [{
         label: '# of Votes',
@@ -253,7 +255,7 @@ function renderChart(){
 
 
 function stringifyAndSet() {
-////////////stringify////////
+  ////////////stringify////////
   var stringifyProducts = JSON.stringify(allProducts);
   //////////////store it in local storage/////////
   localStorage.setItem('products', stringifyProducts);
@@ -267,8 +269,10 @@ var localStorageGetProducts = JSON.parse(localStorage.getItem('products'));
 if (localStorage.getItem('products')) {
   allProducts = localStorageGetProducts;
 } else {
-  allProducts = [];
+  createNewProducts();
 }
 
 console.log('parsed all products', localStorageGetProducts);
+
+render();
 
